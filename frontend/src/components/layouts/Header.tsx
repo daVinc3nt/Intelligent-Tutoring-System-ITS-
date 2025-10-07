@@ -37,7 +37,7 @@ export default function HeaderWrapper() {
                         Đăng nhập
                         </a>
                         <a
-                        href="/register"
+                        href="/auth/signup"
                         className="px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white transition"
                         >
                         Đăng ký
