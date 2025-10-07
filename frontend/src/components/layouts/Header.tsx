@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 export default function HeaderWrapper() {
     return (
-        <header className="fixed top-0 left-0 w-full bg-[#1e1e2f] text-white p-4 shadow-lg">
+        <header className="fixed top-0 left-0 z-[50] w-full bg-[#1e1e2f] text-white p-4 shadow-lg">
             <div className="flex justify-between items-center px-6">
                 {/* Logo bên trái */}
                 <h1 className="text-xl font-bold">My App</h1>
