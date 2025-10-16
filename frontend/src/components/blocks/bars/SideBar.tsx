@@ -32,7 +32,10 @@ export default function Sidebar() {
   // Navigation configuration array
   const navigationLinks = [
     { title: "Home", route: "/dashboard/home", icon: <HomeIcon size={18} /> },
-    { title: "Student Management", route: "/student-management", icon: <UsersIcon size={18} /> },
+    { title: "Student Management", route: "/dashboard/student-management", icon: <UsersIcon size={18} /> },
+    { title: "Courses", route: "/dashboard/courses", icon: "📚" },
+    { title: "Documents", route: "/dashboard/documents", icon: "📄" },
+    { title: "Performance", route: "/dashboard/performance", icon: "📊" },
     { title: "Contacts", route: "/dashboard/contacts", icon: <UsersIcon size={18} /> },
     { title: "Settings", route: "/dashboard/settings", icon: <SettingsIcon size={18} /> },
   ];
@@ -85,7 +88,11 @@ export default function Sidebar() {
               }
             )}
           >
-            {link.icon}
+            {typeof link.icon === 'string' ? (
+              <span className="text-lg">{link.icon}</span>
+            ) : (
+              link.icon
+            )}
             <span
               className={clsx("text-sm font-medium transition-opacity duration-300", {
                 "opacity-0": !isOpen,
