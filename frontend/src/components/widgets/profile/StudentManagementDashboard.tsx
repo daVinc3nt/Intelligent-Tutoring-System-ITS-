@@ -5,6 +5,7 @@ import { StudentProfile } from "./StudentProfile";
 import { LearningAnalytics } from "./LearningAnalytics";
 import { SubjectCard } from "./SubjectCard";
 import { AchievementGrid, AchievementBadge } from "./AchievementBadge";
+import { BookOpen, BarChart3, CheckCircle2, FileText, Trophy, Zap, Target } from "lucide-react";
 
 // Mock data
 const mockSubjects = [
@@ -152,47 +153,47 @@ export const StudentManagementDashboard = () => {
   };
 
   return (
-    <div className="h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50 flex flex-col">
       {/* Navigation Header - Fixed */}
-      <div className="bg-white shadow-sm border-b border-gray-200 flex-shrink-0">
+      <div className="bg-white/80 backdrop-blur-md shadow-lg border-b border-indigo-100 flex-shrink-0">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex space-x-8">
             <button
               onClick={() => handleTabClick('profile')}
-              className={`py-4 px-2 border-b-2 font-medium text-sm ${
+              className={`py-4 px-2 border-b-2 font-semibold text-sm transition-all duration-200 ${
                 activeTab === 'profile'
-                  ? 'border-[#1e1e2f] text-[#1e1e2f]'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-indigo-600 text-indigo-700'
+                  : 'border-transparent text-gray-500 hover:text-indigo-600 hover:border-indigo-300'
               }`}
             >
               Hồ sơ học sinh
             </button>
             <button
               onClick={() => handleTabClick('analytics')}
-              className={`py-4 px-2 border-b-2 font-medium text-sm ${
+              className={`py-4 px-2 border-b-2 font-semibold text-sm transition-all duration-200 ${
                 activeTab === 'analytics'
-                  ? 'border-[#1e1e2f] text-[#1e1e2f]'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-indigo-600 text-indigo-700'
+                  : 'border-transparent text-gray-500 hover:text-indigo-600 hover:border-indigo-300'
               }`}
             >
               Phân tích học tập
             </button>
             <button
               onClick={() => handleTabClick('subjects')}
-              className={`py-4 px-2 border-b-2 font-medium text-sm ${
+              className={`py-4 px-2 border-b-2 font-semibold text-sm transition-all duration-200 ${
                 activeTab === 'subjects'
-                  ? 'border-[#1e1e2f] text-[#1e1e2f]'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-indigo-600 text-indigo-700'
+                  : 'border-transparent text-gray-500 hover:text-indigo-600 hover:border-indigo-300'
               }`}
             >
               Môn học ({mockSubjects.length})
             </button>
             <button
               onClick={() => handleTabClick('achievements')}
-              className={`py-4 px-2 border-b-2 font-medium text-sm ${
+              className={`py-4 px-2 border-b-2 font-semibold text-sm transition-all duration-200 ${
                 activeTab === 'achievements'
-                  ? 'border-[#1e1e2f] text-[#1e1e2f]'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  ? 'border-indigo-600 text-indigo-700'
+                  : 'border-transparent text-gray-500 hover:text-indigo-600 hover:border-indigo-300'
               }`}
             >
               Thành tích ({mockAchievements.filter(a => a.isEarned).length}/{mockAchievements.length})
@@ -227,49 +228,59 @@ export const StudentManagementDashboard = () => {
               
               {/* Subject Statistics */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-                <div className="bg-white rounded-lg shadow-md p-4">
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-indigo-100">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Tổng môn học</p>
-                      <p className="text-2xl font-bold text-gray-800">{mockSubjects.length}</p>
+                      <p className="text-sm font-medium text-gray-600">Tổng môn học</p>
+                      <p className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
+                        {mockSubjects.length}
+                      </p>
                     </div>
-                    <div className="text-3xl">📚</div>
+                    <div className="p-3 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-lg">
+                      <BookOpen className="w-8 h-8 text-indigo-600" />
+                    </div>
                   </div>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-md p-4">
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-blue-100">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">GPA trung bình</p>
-                      <p className="text-2xl font-bold text-blue-600">
+                      <p className="text-sm font-medium text-gray-600">GPA trung bình</p>
+                      <p className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                         {(mockSubjects.reduce((sum, s) => sum + s.currentScore, 0) / mockSubjects.length).toFixed(1)}
                       </p>
                     </div>
-                    <div className="text-3xl">📊</div>
+                    <div className="p-3 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg">
+                      <BarChart3 className="w-8 h-8 text-blue-600" />
+                    </div>
                   </div>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-md p-4">
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-green-100">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Điểm danh TB</p>
-                      <p className="text-2xl font-bold text-green-600">
+                      <p className="text-sm font-medium text-gray-600">Điểm danh TB</p>
+                      <p className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                         {(mockSubjects.reduce((sum, s) => sum + s.attendance, 0) / mockSubjects.length).toFixed(1)}%
                       </p>
                     </div>
-                    <div className="text-3xl">✅</div>
+                    <div className="p-3 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg">
+                      <CheckCircle2 className="w-8 h-8 text-green-600" />
+                    </div>
                   </div>
                 </div>
                 
-                <div className="bg-white rounded-lg shadow-md p-4">
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-purple-100">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Bài tập hoàn thành</p>
-                      <p className="text-2xl font-bold text-purple-600">
+                      <p className="text-sm font-medium text-gray-600">Bài tập hoàn thành</p>
+                      <p className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
                         {Math.round((mockSubjects.reduce((sum, s) => sum + (s.assignments.completed / s.assignments.total), 0) / mockSubjects.length) * 100)}%
                       </p>
                     </div>
-                    <div className="text-3xl">📝</div>
+                    <div className="p-3 bg-gradient-to-br from-purple-50 to-fuchsia-50 rounded-lg">
+                      <FileText className="w-8 h-8 text-purple-600" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -297,33 +308,39 @@ export const StudentManagementDashboard = () => {
                 
                 {/* Achievement Overview */}
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-4 text-white">
+                  <div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 text-white">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm opacity-90">Đã đạt được</p>
-                        <p className="text-2xl font-bold">{mockAchievements.filter(a => a.isEarned).length}</p>
+                        <p className="text-sm opacity-90 font-medium">Đã đạt được</p>
+                        <p className="text-3xl font-bold">{mockAchievements.filter(a => a.isEarned).length}</p>
                       </div>
-                      <div className="text-3xl">🏆</div>
+                      <div className="p-3 bg-white/20 backdrop-blur-sm rounded-lg">
+                        <Trophy className="w-8 h-8" />
+                      </div>
                     </div>
                   </div>
                   
-                  <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-4 text-white">
+                  <div className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 text-white">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm opacity-90">Đang tiến bộ</p>
-                        <p className="text-2xl font-bold">{mockAchievements.filter(a => !a.isEarned && a.progress).length}</p>
+                        <p className="text-sm opacity-90 font-medium">Đang tiến bộ</p>
+                        <p className="text-3xl font-bold">{mockAchievements.filter(a => !a.isEarned && a.progress).length}</p>
                       </div>
-                      <div className="text-3xl">⚡</div>
+                      <div className="p-3 bg-white/20 backdrop-blur-sm rounded-lg">
+                        <Zap className="w-8 h-8" />
+                      </div>
                     </div>
                   </div>
                   
-                  <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-4 text-white">
+                  <div className="bg-gradient-to-br from-purple-500 to-fuchsia-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 text-white">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm opacity-90">Tổng cộng</p>
-                        <p className="text-2xl font-bold">{mockAchievements.length}</p>
+                        <p className="text-sm opacity-90 font-medium">Tổng cộng</p>
+                        <p className="text-3xl font-bold">{mockAchievements.length}</p>
                       </div>
-                      <div className="text-3xl">🎯</div>
+                      <div className="p-3 bg-white/20 backdrop-blur-sm rounded-lg">
+                        <Target className="w-8 h-8" />
+                      </div>
                     </div>
                   </div>
                 </div>

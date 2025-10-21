@@ -2,17 +2,22 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
-  HomeIcon,
-  UsersIcon,
-  SettingsIcon,
-  PlusIcon,
-  FeedbackIcon,
-  LogoIcon,
-  MenuIcon,
-  ChevronLeftIcon,
-  MicrosoftIcon,
-  GoogleIcon,
-} from "../../icons";
+  Home,
+  Users,
+  Settings,
+  BookOpen,
+  FileText,
+  BarChart3,
+  UserPlus,
+  MessageSquare,
+  User,
+  CreditCard,
+  Command,
+  LogOut,
+  Star,
+  Building2
+} from "lucide-react";
+import { LogoIcon } from "../../icons";
 import {
   Popover,
   PopoverContent,
@@ -29,9 +34,13 @@ export default function MobileSidebar() {
   const pathname = usePathname();
   const { session } = useSession(); // Fetch session data
   const navigationLinks = [
-    { title: "Home", route: "/dashboard/home", icon: <HomeIcon size={18} /> },
-    { title: "Contacts", route: "/dashboard/contacts", icon: <UsersIcon size={18} /> },
-    { title: "Settings", route: "/dashboard/settings", icon: <SettingsIcon size={18} /> },
+    { title: "Home", route: "/dashboard/home", icon: <Home size={18} /> },
+    { title: "Student Management", route: "/dashboard/student-management", icon: <Users size={18} /> },
+    { title: "Courses", route: "/dashboard/courses", icon: <BookOpen size={18} /> },
+    { title: "Documents", route: "/dashboard/documents", icon: <FileText size={18} /> },
+    { title: "Performance", route: "/dashboard/performance", icon: <BarChart3 size={18} /> },
+    { title: "Contacts", route: "/dashboard/contacts", icon: <Users size={18} /> },
+    { title: "Settings", route: "/dashboard/settings", icon: <Settings size={18} /> },
   ];
 
   useEffect(() => {
@@ -88,51 +97,19 @@ export default function MobileSidebar() {
           ))}
         </nav>
 
-        <div className="mb-6 px-2 w-fit">
-          <p
-            className={clsx(
-              "text-sm font-semibold text-muted-foreground mb-3 transition-opacity duration-300",
-              { "opacity-0": !isOpen }
-            )}
-          >
+        {/* Favorites */}
+        <div className="mb-6 w-full">
+          <p className="text-sm font-semibold text-muted-foreground mb-3">
             Favorites
           </p>
-          <div className="space-y-3">
-            <div className="flex items-center gap-3 w-full">
-              <Image
-                className="rounded-md"
-                alt="User Avatar"
-                src="/user.jpg"
-                width={18}
-                height={18}
-              />
-              <span
-                className={clsx("text-sm font-medium transition-opacity duration-300", {
-                  "opacity-0": !isOpen,
-                })}
-              >
-                Airbnb
-              </span>
+          <div className="flex flex-col gap-1">
+            <div className="flex hover:cursor-pointer items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent hover:text-foreground transition-colors">
+              <Star size={18} className="shrink-0" />
+              <span className="text-sm font-medium">Starred Items</span>
             </div>
-            <div className="flex items-center gap-3">
-              <GoogleIcon size={18} />
-              <span
-                className={clsx("text-sm font-medium transition-opacity duration-300", {
-                  "opacity-0": !isOpen,
-                })}
-              >
-                Google
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <MicrosoftIcon size={18} />
-              <span
-                className={clsx("text-sm font-medium transition-opacity duration-300", {
-                  "opacity-0": !isOpen,
-                })}
-              >
-                Microsoft
-              </span>
+            <div className="flex hover:cursor-pointer items-center gap-3 px-3 py-2 rounded-lg hover:bg-accent hover:text-foreground transition-colors">
+              <Building2 size={18} className="shrink-0" />
+              <span className="text-sm font-medium">Organizations</span>
             </div>
           </div>
         </div>
@@ -141,78 +118,85 @@ export default function MobileSidebar() {
         <div className="flex-grow"></div>
 
         {/* Actions */}
-        <div className="border-t pt-4 flex flex-col gap-3 w-full text-nowrap">
-          <button className="rounded-md flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground hover:bg-accent px-2 py-2">
-            <PlusIcon size={18} />
-            <span
-              className={clsx("transition-opacity duration-300", {
-                "opacity-0": !isOpen,
-              })}
-            >
-              Invite member
-            </span>
+        <div className="border-t pt-4 flex flex-col gap-1 w-full">
+          <button className="rounded-lg flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground hover:bg-accent px-3 py-2 transition-colors">
+            <UserPlus size={18} className="shrink-0" />
+            <span>Invite member</span>
           </button>
-          <button className="rounded-md flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground  hover:bg-accent px-2 py-2">
-            <FeedbackIcon size={18} />
-            <span
-              className={clsx("transition-opacity duration-300", {
-                "opacity-0": !isOpen,
-              })}
-            >
-              Feedback
-            </span>
+          <button className="rounded-lg flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground hover:bg-accent px-3 py-2 transition-colors">
+            <MessageSquare size={18} className="shrink-0" />
+            <span>Feedback</span>
           </button>
   
           <Popover>
-          <PopoverTrigger>
-            <div className="rounded-md flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground hover:bg-accent px-2 py-2">
-              <Image
-                className="rounded-full"
-                alt="User"
-                src={session?.avaUrl || "/user.jpg"} // Use session avatar or fallback
-                width={30}
-                height={30}
-              />
-              <span
-                className={clsx("transition-opacity duration-300", {
-                  "opacity-0": !isOpen,
-                })}
-              >
-                {session?.name || "Guest"} {/* Use session name or fallback */}
-              </span>
-            </div>
-          </PopoverTrigger>
-          <PopoverContent className="w-64 p-4 bg-background rounded-lg shadow-md">
-            <div className="flex flex-col gap-2">
-              <div className="text-sm font-semibold">{session?.name || "Guest"}</div>
-              <div className="text-xs text-muted-foreground">{session?.email || "No email available"}</div>
-            </div>
-            <div className="mt-4 border-t pt-4 space-y-2">
-              <button className="flex items-center justify-between w-full text-sm text-muted-foreground hover:text-foreground hover:bg-accent px-2 py-2 rounded-md">
-                <span>Profile</span>
-                <span className="text-xs">⇧P</span>
+            <PopoverTrigger asChild>
+              <button className="rounded-lg flex items-center gap-3 text-sm hover:bg-accent px-3 py-2 transition-colors w-full">
+                <div className="w-[20px] h-[20px] relative shrink-0">
+                  <Image
+                    className="rounded-full object-cover"
+                    alt="User"
+                    src={session?.avaUrl || "/user.jpg"}
+                    fill
+                  />
+                </div>
+                <span className="text-left truncate flex-1">
+                  {session?.name || "Guest"}
+                </span>
               </button>
-              <button className="flex items-center justify-between w-full text-sm text-muted-foreground hover:text-foreground hover:bg-accent px-2 py-2 rounded-md">
-                <span>Billing</span>
-                <span className="text-xs">⇧B</span>
-              </button>
-              <button className="flex items-center justify-between w-full text-sm text-muted-foreground hover:text-foreground hover:bg-accent px-2 py-2 rounded-md">
-                <span>Command Menu</span>
-                <span className="text-xs">⌘K</span>
-              </button>
-              <div className="flex items-center justify-between w-full text-sm text-muted-foreground hover:bg-accent px-2 py-2 rounded-md">
-                <span>Theme</span>
-                <div className="flex items-center gap-2">
-                    <ThemeSelector/>
+            </PopoverTrigger>
+            <PopoverContent className="w-64 p-0 bg-background rounded-lg shadow-lg border" align="end">
+              {/* User Info Header */}
+              <div className="p-4 border-b">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 relative shrink-0">
+                    <Image
+                      className="rounded-full object-cover"
+                      alt="User"
+                      src={session?.avaUrl || "/user.jpg"}
+                      fill
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-semibold truncate">{session?.name || "Guest"}</div>
+                    <div className="text-xs text-muted-foreground truncate">{session?.email || "No email"}</div>
+                  </div>
                 </div>
               </div>
-              <button className="flex items-center justify-between w-full text-sm text-muted-foreground hover:text-foreground hover:bg-accent px-2 py-2 rounded-md">
-                <span>Log out</span>
-                <span className="text-xs">⇧L</span>
-              </button>
-            </div>
-          </PopoverContent>
-        </Popover>
+
+              {/* Menu Items */}
+              <div className="p-2 space-y-1">
+                <button className="flex items-center gap-3 w-full text-sm hover:bg-accent px-3 py-2 rounded-md transition-colors">
+                  <User size={16} />
+                  <span className="flex-1 text-left">Profile</span>
+                  <span className="text-xs text-muted-foreground">⇧P</span>
+                </button>
+                <button className="flex items-center gap-3 w-full text-sm hover:bg-accent px-3 py-2 rounded-md transition-colors">
+                  <CreditCard size={16} />
+                  <span className="flex-1 text-left">Billing</span>
+                  <span className="text-xs text-muted-foreground">⇧B</span>
+                </button>
+                <button className="flex items-center gap-3 w-full text-sm hover:bg-accent px-3 py-2 rounded-md transition-colors">
+                  <Command size={16} />
+                  <span className="flex-1 text-left">Command Menu</span>
+                  <span className="text-xs text-muted-foreground">⌘K</span>
+                </button>
+                <div className="flex items-center gap-3 w-full text-sm px-3 py-2">
+                  <Settings size={16} />
+                  <span className="flex-1 text-left">Theme</span>
+                  <ThemeSelector />
+                </div>
+              </div>
+
+              {/* Logout */}
+              <div className="p-2 border-t">
+                <button className="flex items-center gap-3 w-full text-sm hover:bg-accent px-3 py-2 rounded-md transition-colors text-red-600 hover:text-red-700">
+                  <LogOut size={16} />
+                  <span className="flex-1 text-left">Log out</span>
+                  <span className="text-xs text-muted-foreground">⇧L</span>
+                </button>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
       </aside>
     </>
