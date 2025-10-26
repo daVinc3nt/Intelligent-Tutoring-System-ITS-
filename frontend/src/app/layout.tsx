@@ -4,6 +4,9 @@ import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { SessionProvider } from "@/context/Sessioncontext";
 import HeaderWrapper from "@/components/layouts/HeaderWrapper";
+import Footer from "@/components/layouts/Footer";
+import Header from "@/components/layouts/Header";
+import ConditionalLayout from "@/components/layouts/ConditionalLayout";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -34,7 +37,9 @@ export default function RootLayout({
         <SessionProvider>
           <ThemeProvider>
             <div className="size-full bg-background"></div>
-            {children}
+            <ConditionalLayout>
+              {children}
+            </ConditionalLayout>
           </ThemeProvider>
         </SessionProvider>
       </body>
