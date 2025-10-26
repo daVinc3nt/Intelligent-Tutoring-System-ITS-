@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: identity-service
+  datasource:
+    #    url: ${SPRING_DATASOURCE_URL}
+    #    username: ${SPRING_DATASOURCE_USERNAME}
+    #    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:postgresql://localhost:5434/identitydb
+    username: identityUser
+    password: 12345678
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+keycloak:
+  #  server-url: ${KEYCLOAK_SERVER_URL}
+  #  realm: ${KEYCLOAK_REALM}
+  #  client-id: ${KEYCLOAK_CLIENT_ID}
+  #  client-secret: ${KEYCLOAK_CLIENT_SECRET}
+  server-url: http://localhost:8081
+  realm: ITS-realm
+  client-id: identity-service
+  client-secret: <client-key>
+
+server:
+  port: 8082
+
+security:
+  oauth2:
+    resourceserver:
+      jwt:
+        issuer-uri: http://localhost:8081/realms/ITS-realm
+#        issuer-uri: ${KEYCLOAK_ISSUER_URI}
+
