@@ -6,9 +6,9 @@ FROM eclipse-temurin:21-jdk AS builder
 WORKDIR /build
 
 # --- Copy Maven Wrapper & module pom ---
-COPY backend/java-service/identity-service/mvnw .
-COPY backend/java-service/identity-service/.mvn .mvn
-COPY backend/java-service/identity-service/pom.xml pom.xml
+COPY backend/java-service/dashboard-service/mvnw .
+COPY backend/java-service/dashboard-service/.mvn .mvn
+COPY backend/java-service/dashboard-service/pom.xml pom.xml
 
 # --- Copy POM cha (multi-module root POM) ---
 COPY backend/java-service/pom.xml ../pom.xml
@@ -19,7 +19,7 @@ RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline -B -ntp
 
 # --- Copy source code ---
-COPY backend/java-service/identity-service/src src
+COPY backend/java-service/dashboard-service/src src
 
 # --- Build application ---
 RUN ./mvnw clean package -DskipTests -B -ntp
@@ -38,5 +38,5 @@ COPY --from=builder /build/app.jar app.jar
 
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 
-EXPOSE 8082
+EXPOSE 8085
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
